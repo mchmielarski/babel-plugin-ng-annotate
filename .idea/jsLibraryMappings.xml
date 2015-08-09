@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="JavaScriptLibraryMappings">
-    <file url="file://$USER_HOME$/my-modules/babel-plugin-ng-annotate" libraries="{babel-plugin-angular node_modules}" />
-    <file url="file://$USER_HOME$/my-modules/babel-plugin-object-assign" libraries="{babel-plugin-object-assign node_modules}" />
-    <includedPredefinedLibrary name="ECMAScript 6" />
-  </component>
-</project>
