@@ -1,0 +1,25 @@
+{
+  "name": "babel-plugin-ng-annotate",
+  "version": "0.1.0",
+  "dependencies": {
+    "babel-core": "^5.8.0"
+  },
+  "author": "Maciej Chmielarski <m.chmielarski@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mchmielarski/babel-plugin-ng-annotate.git"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel-plugin build",
+    "push": "babel-plugin publish",
+    "test": "babel-plugin test"
+  },
+  "keywords": [
+    "babel",
+    "babel-plugin",
+    "angular",
+    "annotate"
+  ]
+}
