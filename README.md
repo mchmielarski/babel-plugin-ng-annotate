@@ -31,7 +31,7 @@ var b = browserify({
 );
 ```
 
-## How to use plugin
+## How to use
 
 ```js
 @Inject('service1', 'service2', 'service3')
