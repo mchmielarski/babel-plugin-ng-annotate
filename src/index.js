@@ -9,7 +9,7 @@ export default function ({ Plugin, types: t }) {
         0,
         t.expressionStatement(
           t.assignmentExpression(
-            "=",
+            '=',
             t.memberExpression(t.thisExpression(), t.identifier(p)),
             t.identifier(p)
           )
@@ -20,7 +20,7 @@ export default function ({ Plugin, types: t }) {
     return node;
   }
 
-  return new Plugin("ng-annotate", {
+  return new Plugin('ng-annotate', {
     visitor: {
       ClassDeclaration(node, parent, scope, file) {
         if (!node.decorators) {
@@ -34,7 +34,7 @@ export default function ({ Plugin, types: t }) {
 
         for (i = 0; i < node.decorators.length; i++) {
           let ex = node.decorators[i].expression;
-          if (t.isCallExpression(ex) && t.isIdentifier(ex.callee, {name: "Inject"})) {
+          if (t.isCallExpression(ex) && t.isIdentifier(ex.callee, {name: 'Inject'})) {
             doInjection = true;
             for (j = 0; j < ex.arguments.length; j++) {
               fromDecorator.push(ex.arguments[j].value);
@@ -43,18 +43,18 @@ export default function ({ Plugin, types: t }) {
         }
 
         if (doInjection) {
-          file.set("hasInject", true);
+          file.set('hasInject', true);
           node.body.body.forEach(child => {
-            if (!hasConstructor && t.isMethodDefinition(child, {kind: "constructor"})) {
+            if (!hasConstructor && t.isMethodDefinition(child, {kind: 'constructor'})) {
               rebuildConstructor(child, fromDecorator)
             }
           });
 
           if (!hasConstructor) {
             let constructorNode = t.methodDefinition(
-              t.identifier("constructor"),
+              t.identifier('constructor'),
               t.functionExpression(null, [], t.blockStatement([])),
-              "constructor",
+              'constructor',
               true
             );
             node.body.body.unshift(rebuildConstructor(constructorNode, fromDecorator));
@@ -64,16 +64,16 @@ export default function ({ Plugin, types: t }) {
 
       Program: {
         enter: function (node, parent, scope, file) {
-          file.set("hasInject", false);
+          file.set('hasInject', false);
         },
 
         exit: function (node, parent, scope, file) {
-          if (file.get("hasInject") && !scope.hasBinding("Inject")) {
+          if (file.get('hasInject') && !scope.hasBinding('Inject')) {
             node.body.unshift(t.variableDeclaration(
-              "let",
+              'let',
               [t.variableDeclarator(
-                t.identifier("Inject"),
-                t.callExpression(t.identifier("require"), [t.literal("babel-plugin-ng-annotate/lib/inject")])
+                t.identifier('Inject'),
+                t.callExpression(t.identifier('require'), [t.literal('babel-plugin-ng-annotate/lib/inject')])
               )]
             ));
           }
