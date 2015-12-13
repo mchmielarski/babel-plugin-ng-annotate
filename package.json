@@ -1,9 +1,9 @@
 {
   "name": "babel-plugin-ng-annotate",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Babel Plugin for AngularJS dependency injection annotations.",
   "dependencies": {
-    "babel-core": "^5.8.0"
+    "babel-runtime": "^6.3.13"
   },
   "author": "Maciej Chmielarski <m.chmielarski@gmail.com>",
   "license": "MIT",
@@ -13,14 +13,13 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel-plugin build",
-    "push": "babel-plugin publish",
-    "test": "babel-plugin test"
+    "build": "babel src --out-dir lib"
   },
   "keywords": [
     "babel",
     "babel-plugin",
     "angular",
     "annotate"
-  ]
+  ],
+  "devDependencies": {}
 }

@@ -1,4 +1,4 @@
-# babel-plugin-ng-annotate
+# babel-plugin-ng-annotate - babel 6.x
 
 ## How to install
 
@@ -8,28 +8,14 @@ $ npm install --save-dev babel-plugin-ng-annotate
 
 ## How to setup
 
-#### CLI
+#### .babelrc
 ```js
-$ babel --stage 0 --plugins ng-annotate script.js
+{
+  "presets": ["es2015"],
+  "plugins": ["syntax-decorators", "ng-annotate"]
+}
 ```
 
-#### Require hook
-```js
-require("babel").transform("code", { stage: 0, plugins: ["ng-annotate"] });
-```
-
-#### Browserify
-
-```js
-var b = browserify({
-  // options
-}).transform(
-  babelify.configure({
-    stage: 0,
-    plugins: ["ng-annotate"]
-  })
-);
-```
 
 ## How to use
 
