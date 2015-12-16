@@ -30,6 +30,17 @@ export default function({ types: t }) {
         }
 
         toParam.forEach(i => {
+          let fCmd;
+          let sup;
+          if(Array.isArray(ctor.body.body)) {
+            fCmd = ctor.body.body[0];
+          } else {
+            fCmd = ctor.body.body;
+          }
+          if(fCmd && fCmd.expression.callee.type === 'Super') {
+            sup = ctor.body.body.shift();
+          }
+
           ctor.body.body.unshift(
             t.expressionStatement(
               t.assignmentExpression(
@@ -39,6 +50,10 @@ export default function({ types: t }) {
               )
             )
           );
+
+          if(sup) {
+            ctor.body.body.unshift(sup);
+          }
         })
 
         ctor.params = ctor.params.concat(toParam.map(i => t.identifier(i)));
