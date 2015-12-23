@@ -37,7 +37,7 @@ export default function({ types: t }) {
           } else {
             fCmd = ctor.body.body;
           }
-          if(fCmd && fCmd.expression.callee.type === 'Super') {
+          if(fCmd && fCmd.expression.callee && fCmd.expression.callee.type === 'Super') {
             sup = ctor.body.body.shift();
           }
 
