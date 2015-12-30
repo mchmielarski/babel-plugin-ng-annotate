@@ -6,6 +6,8 @@
 $ npm install --save-dev babel-plugin-ng-annotate
 ```
 
+Note: this library depends on the [syntax decorators](https://www.npmjs.com/package/babel-plugin-syntax-decorators) plugin for parsing. Simply `$ npm install --save-dev babel-plugin-syntax-decorators` and follow the setup instructions below.
+
 ## How to setup
 
 #### .babelrc
