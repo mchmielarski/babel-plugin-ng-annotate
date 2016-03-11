@@ -23,6 +23,11 @@ export default function({ types: t }) {
             [],
             t.blockStatement([])
           );
+          if (path.node.superClass) {
+            ctor.body.body.unshift(
+              t.expressionStatement(t.callExpression(t.super(), []))
+            );
+          }
           path.node.body.body.unshift(ctor);
           toParam = toInject;
         } else {
@@ -37,7 +42,7 @@ export default function({ types: t }) {
           } else {
             fCmd = ctor.body.body;
           }
-          if(fCmd && fCmd.expression.callee && fCmd.expression.callee.type === 'Super') {
+          if(fCmd && fCmd.expression && fCmd.expression.callee && fCmd.expression.callee.type === 'Super') {
             sup = ctor.body.body.shift();
           }
 
