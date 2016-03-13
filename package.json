@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-ng-annotate",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Babel Plugin for AngularJS dependency injection annotations.",
   "dependencies": {
     "babel-runtime": "^6.3.13"
