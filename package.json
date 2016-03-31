@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-ng-annotate",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Babel Plugin for AngularJS dependency injection annotations.",
   "dependencies": {
     "babel-plugin-syntax-decorators": "^6.5.0",
@@ -24,5 +24,7 @@
     "angular",
     "annotate"
   ],
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-cli": "^6.6.5"
+  }
 }

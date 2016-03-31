@@ -1,4 +1,4 @@
-export default function({ types: t }) {
+export default function ({ types: t }) {
   return {
     visitor: {
       ClassDeclaration(path) {
@@ -7,7 +7,7 @@ export default function({ types: t }) {
         }
         const inject = path.node.decorators.find(decorator => decorator.expression.callee.name === 'Inject');
 
-        if(!inject) {
+        if (!inject) {
           return;
         }
         path.node.decorators = path.node.decorators.splice(path.node.decorators.indexOf(inject), 1);
@@ -16,7 +16,7 @@ export default function({ types: t }) {
         let ctor = path.node.body.body.find(el => el.kind === 'constructor');
         let toParam;
 
-        if(!ctor) {
+        if (!ctor) {
           ctor = t.classMethod(
             'constructor',
             t.identifier('constructor'),
@@ -37,12 +37,12 @@ export default function({ types: t }) {
         toParam.forEach(i => {
           let fCmd;
           let sup;
-          if(Array.isArray(ctor.body.body)) {
+          if (Array.isArray(ctor.body.body)) {
             fCmd = ctor.body.body[0];
           } else {
             fCmd = ctor.body.body;
           }
-          if(fCmd && fCmd.expression && fCmd.expression.callee && fCmd.expression.callee.type === 'Super') {
+          if (fCmd && fCmd.expression && fCmd.expression.callee && fCmd.expression.callee.type === 'Super') {
             sup = ctor.body.body.shift();
           }
 
@@ -56,21 +56,26 @@ export default function({ types: t }) {
             )
           );
 
-          if(sup) {
+          if (sup) {
             ctor.body.body.unshift(sup);
           }
         })
 
         ctor.params = ctor.params.concat(toParam.map(i => t.identifier(i)));
 
-        path.insertAfter(t.expressionStatement(t.assignmentExpression(
+        const injectExp = t.expressionStatement(t.assignmentExpression(
           '=',
           t.memberExpression(
             t.identifier(path.node.id.name),
             t.identifier('$inject')),
-            t.arrayExpression(toInject.map(d => t.stringLiteral(d)))
-          )
+          t.arrayExpression(toInject.map(d => t.stringLiteral(d)))
         ));
+
+        if (path.parentPath.type === 'ExportNamedDeclaration') {
+          path.parentPath.insertAfter(injectExp);
+        } else {
+          path.insertAfter(injectExp);
+        }
       }
     }
   };

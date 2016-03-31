@@ -1,6 +1,6 @@
 
 @Inject('$exService')
-class ExampleController {
+export class ExampleController {
 
   constructor() {
     this.data = '';
@@ -14,5 +14,3 @@ class ExampleController {
       });
   }
 }
-
-export default ExampleController;
